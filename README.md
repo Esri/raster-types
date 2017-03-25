@@ -1,18 +1,7 @@
 # ArcGIS Raster Types in Python
 
-This repository houses ArcGIS compatible Raster Types implemented in Python. This repository also contains developer-centric documentation on how to implement a custom raster type that ArcGIS can understand using Python.
+This repository houses ArcGIS Raster Types implemented in Python. This repository also contains developer-centric documentation on how to implement a custom raster type that ArcGIS can understand using Python.
 
-A **Python raster type** is a [raster type](http://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/what-is-a-raster-type.htm) implemented in python. We can think of a raster type as a set of functions that understand the format of the metadata structure associated with any data; and it can parse the metadata to retrieve information such as 
-
-- Paths to pixel data files
-- Spatial reference information
-- Metadata such as
-  - Sensor name
-  - Sun elevation, Sun azimuth, Sun distance
-  - Acquisition date
-  - Radiance/Reflectance parameters
-
-In addition to parsing and reading metadata information from the metadata file, a raster type also defines the processing templates that are applicable to the type of data being read. The processing templates can combine different pieces of information from the source data to generate an output that is much more meaningful and convenient for further analysis. Most of the raster types based on sensor data define Multispectral as one of its processing templates. Many other templates can be defined based on the type of data available for a product. For example, Landsat 8 raster type defines various templates such as Multispectral, Panchromatic, Pansharpened, Vegetation, Cirrus, Snow/Ice etc.
 
 ## Getting Started 
 
