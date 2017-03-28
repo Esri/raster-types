@@ -1,4 +1,4 @@
-# ArcGIS Raster Types in Python
+# Raster Types in Python
 
 This repository houses ArcGIS Raster Types implemented in Python. This repository also contains developer-centric documentation on how to implement a custom raster type that ArcGIS can understand using Python.
 
