@@ -5,7 +5,7 @@ This repository houses ArcGIS Raster Types implemented in Python. This repositor
 
 ## Getting Started 
 
-Python Raster type framework is part of ArcGIS starting at version 10.5.1. To get started, install [ArcGIS Desktop 10.5.1](http://desktop.arcgis.com/en/#apps) or [ArcGIS Enterprise 10.5.1](http://server.arcgis.com/en/). 
+Python Raster type framework was introduced in ArcGIS 10.5.1. To get started, install [ArcGIS Desktop 10.5.1](http://desktop.arcgis.com/en/#apps) or later or [ArcGIS Enterprise 10.5.1](http://server.arcgis.com/en/) or later. 
 
 ## Resources
 
