@@ -1,0 +1,65 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.5'>
+	<Name>GS_Composite</Name>
+	<Description>A raster function template.This can be used for NBAR, NBART and Lambertian, since they have some number of bands</Description>
+	<Function xsi:type='typens:CompositeBandFunction'>
+		<Name>Composite Band Function</Name>
+		<Description>Combines rasters to form a multiband raster.</Description>
+		<PixelType>UNKNOWN</PixelType>
+	</Function>
+	<Arguments xsi:type='typens:RasterFunctionVariable'>
+		<Name>Rasters_2018730_14522_547</Name>
+		<Description/>
+		<Value xsi:type='typens:ArrayOfArgument'>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster1</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster2</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster3</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster4</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster5</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster6</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster7</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+		</Value>
+		<IsDataset>false</IsDataset>
+	</Arguments>
+	<Help/>
+	<Type>0</Type>
+	<Thumbnail/>
+	<Definition/>
+	<Group/>
+	<Tag/>
+	<ThumbnailEx/>
+</RasterFunctionTemplate>
