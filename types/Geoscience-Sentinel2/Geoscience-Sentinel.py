@@ -32,8 +32,7 @@ try:
     import yaml
     import boto3
 except ImportError as e:
-    print ('Err. {}'.format(str(e)))
-    exit(1)
+    raise
 
 class DataSourceType():
     File = 1
@@ -258,36 +257,26 @@ class RasterTypeFactory():
                                         {
                                             'bandName': 'azimuthal_exiting',
                                             'bandIndex': 1,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'azimuthal_incident',
                                             'bandIndex': 2,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'exiting',
                                             'bandIndex': 3,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'fmask',
                                             'bandIndex': 4,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'incident',
                                             'bandIndex': 5,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
@@ -391,8 +380,6 @@ class RasterTypeFactory():
                                         {
                                             'bandName': 'nbar_contiguity',
                                             'bandIndex': 20,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'CG'
                                         },
                                         {
@@ -475,8 +462,6 @@ class RasterTypeFactory():
                                         {
                                             'bandName': 'nbart_contiguity',
                                             'bandIndex': 32,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'CG'
                                         },
                                         {
@@ -545,57 +530,41 @@ class RasterTypeFactory():
                                         {
                                             'bandName': 'relative_azimuth',
                                             'bandIndex': 42,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'relative_slope',
                                             'bandIndex': 43,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'satellite_azimuth',
                                             'bandIndex': 44,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'satellite_view',
                                             'bandIndex': 45,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'solar_azimuth',
                                             'bandIndex': 46,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'solar_zenith',
                                             'bandIndex': 47,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'terrain_shadow',
                                             'bandIndex': 48,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'timedelta',
                                             'bandIndex': 49,
-                                            'wavelengthMin': 1550.0,
-                                            'wavelengthMax': 1590.0,
                                             'datasetTag': 'MS'
                                         }
                                       ],
@@ -635,19 +604,16 @@ class Utilities():
                 try:
                     doc = (yaml.load(q))
                 except yaml.YAMLError as exc:
-                    print(exc)
-                    return None
+                    raise
                 return doc
         except:
-            print ("Error in opening yaml file")
-            return None
+            raise
     def readYamlS3(self,path):          #to read the yaml file located on S3
         page=requests.get(path,stream=True,timeout=None)
         try:
             doc= (yaml.load(page.content))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
 
     def readYamlS3_boto3(self,bucket,path):          #to read the yaml file located on S3
@@ -656,8 +622,7 @@ class Utilities():
             page = client.get_object(Bucket=bucket,Key=path)
             doc = (yaml.load(page['Body'].read()))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
 
     def getProductName(self, doc):
@@ -744,7 +709,7 @@ class GeoscienceSentinelBuilder():
                 doc = self.utils.readYamlS3(_yamlpath)
 
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
 
                 lastIdx= _yamlpath.rfind('/')
@@ -822,7 +787,7 @@ class GeoscienceSentinelBuilder():
                 doc = self.utils.readYamlS3_boto3(bucketname,key)
 
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
 
                 lastIdx= _yamlpath.rfind('/')
@@ -896,7 +861,7 @@ class GeoscienceSentinelBuilder():
                 doc = self.utils.readYaml(_yamlpath)
 
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
 
                 refPoints= doc['grid_spatial']['projection']['geo_ref_points']
@@ -1465,7 +1430,7 @@ class GeoscienceSentinelBuilder():
             builtItemsList.append(builtItem)
             return builtItemsList
         except Exception as e:
-            print(str(e))
+            raise
         return None
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -1480,7 +1445,7 @@ class GeoscienceSentinelCrawler():
             self.recurse = crawlerProperties['recurse']
             self.filter = crawlerProperties['filter']
         except:
-            print ('Error in crawler properties')
+##            print ('Error in crawler properties')
             return None
         self.run = 1
         if (self.filter is (None or "")):

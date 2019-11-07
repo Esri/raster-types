@@ -34,7 +34,8 @@ try:
     import yaml
     import boto3
 except ImportError as e:
-    raise
+    print ('Err. {}'.format(str(e)))
+    exit(1)
 
 class DataSourceType():
     File = 1
@@ -181,61 +182,85 @@ class RasterTypeFactory():
                                         {
                                             'bandName': 'BS',
                                             'bandIndex': 0,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'NPV',
                                             'bandIndex': 1,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'PV',
                                             'bandIndex': 2,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'UE',
                                             'bandIndex': 3,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         }
                                         ,{
                                             'bandName': 'canopy_cover_class',
                                             'bandIndex': 0,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'extent',
                                            'bandIndex': 1,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         } ,
                                         {
                                             'bandName': 'confidence',
                                             'bandIndex': 0,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'wofs_filtered_summary',
                                             'bandIndex': 1,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         } ,
                                         {
                                             'bandName': 'count_clear',
                                             'bandIndex': 0,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'count_wet',
                                            'bandIndex': 1,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         },
                                         {
                                             'bandName': 'frequency',
                                            'bandIndex': 2,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         }  ,
                                         {
                                             'bandName': 'water',
                                            'bandIndex': 0,
+                                            'wavelengthMin': 636.0,
+                                            'wavelengthMax': 673.0,
                                             'datasetTag': 'MS'
                                         }
                                       ],
@@ -261,10 +286,12 @@ class Utilities():
                 try:
                     doc = (yaml.load(q))
                 except yaml.YAMLError as exc:
-                    raise
+                    print(exc)
+                    return None
                 return doc
         except:
-            raise
+            print ("Error in opening yaml file")
+            return None
 
 ##    def readYamlS3(self,path):          #to read the yaml file located on S3
 ##        page= urllib.request.urlopen(path)
@@ -282,7 +309,8 @@ class Utilities():
             page = client.get_object(Bucket=bucket,Key=path)
             doc = (yaml.load(page['Body'].read()))
         except yaml.YAMLError as exc:
-            raise
+            print(exc)
+            return None
         return doc
 
 
@@ -291,7 +319,8 @@ class Utilities():
         try:
             doc= (yaml.load(page.content))
         except yaml.YAMLError as exc:
-            raise
+            print(exc)
+            return None
         return doc
 
 
@@ -448,7 +477,7 @@ class GeoscienceBuilder():
                     if (_yamlpath.startswith("http")):
                         doc = self.utils.readYamlS3(_yamlpath)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
 
                         lastIdx= _yamlpath.rfind('/')
@@ -495,7 +524,7 @@ class GeoscienceBuilder():
                         key = _yamlpath[index+1:]
                         doc = self.utils.readYamlS3_boto3(bucketname,key)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
                         lastIdx= _yamlpath.rfind('/')
                         inputDir= _yamlpath[5:lastIdx]  #along with the bucket name
@@ -537,7 +566,7 @@ class GeoscienceBuilder():
                     else:
                         doc = self.utils.readYaml(_yamlpath)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
 
                         refPoints= doc['grid_spatial']['projection']['geo_ref_points']
@@ -631,7 +660,7 @@ class GeoscienceBuilder():
                     if (_yamlpath.startswith("http")):
                         doc = self.utils.readYamlS3(_yamlpath)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
 
                         lastIdx= _yamlpath.rfind('/')
@@ -680,7 +709,7 @@ class GeoscienceBuilder():
                         key = _yamlpath[index+1:]
                         doc = self.utils.readYamlS3_boto3(bucketname,key)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
                         lastIdx= _yamlpath.rfind('/')
                         inputDir= _yamlpath[5:lastIdx]  #along with the bucket name
@@ -725,7 +754,7 @@ class GeoscienceBuilder():
 
                         doc = self.utils.readYaml(_yamlpath)
                         if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-##                            print  ('Err. Invalid input format!')
+                            print  ('Err. Invalid input format!')
                             return False
 
                         yamldir= os.path.dirname(_yamlpath)
@@ -1045,7 +1074,8 @@ class GeoscienceBuilder():
                 return builtItemsList
 
             except Exception as e:
-                raise
+                print(str(e))
+                return None
 
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##

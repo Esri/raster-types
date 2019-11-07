@@ -32,8 +32,7 @@ try:
     import yaml
     import boto3
 except ImportError as e:
-    print ('Err. {}'.format(str(e)))
-    exit(1)
+    raise
 
 class DataSourceType():
     File = 1
@@ -245,20 +244,17 @@ class Utilities():
                 try:
                     doc = (yaml.load(q))
                 except yaml.YAMLError as exc:
-                    print(exc)
-                    return None
+                    raise
                 return doc
         except:
-            print ("Error in opening yaml file")
-            return None
+            raise
 
     def readYamlS3(self,path):          #to read the yaml file located on S3
         page=requests.get(path,stream=True,timeout=None)
         try:
             doc= (yaml.load(page.content))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
 
     def readYamlS3_boto3(self,bucket,path):          #to read the yaml file located on S3
@@ -267,8 +263,7 @@ class Utilities():
             page = client.get_object(Bucket=bucket,Key=path,RequestPayer='requester')
             doc = (yaml.load(page['Body'].read()))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
 
 
@@ -354,7 +349,7 @@ class LandsatDataCubeBuilder():
             if (_yamlpath.startswith("http:")):
                 doc = self.utils.readYamlS3(_yamlpath)
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
 
                 lastIdx= _yamlpath.rfind('/')
@@ -396,7 +391,7 @@ class LandsatDataCubeBuilder():
                 key = _yamlpath[index+1:]
                 doc = self.utils.readYamlS3_boto3(bucketname,key)
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
                 lastIdx= _yamlpath.rfind('/')
                 inputDir= _yamlpath[5:lastIdx]  #along with the bucket name
@@ -433,7 +428,7 @@ class LandsatDataCubeBuilder():
             else:
                 doc = self.utils.readYaml(_yamlpath)
                 if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
+##                    print  ('Err. Invalid input format!')
                     return False
 
                 refPoints= doc['grid_spatial']['projection']['geo_ref_points']
@@ -611,7 +606,7 @@ class LandsatDataCubeBuilder():
             builtItemsList.append(builtItem)
             return builtItemsList
         except Exception as e:
-            print(str(e))
+            raise
         return None
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -627,7 +622,7 @@ class LandsatDataCubeCrawler():
             self.filter = crawlerProperties['filter']
             self.run = 1
         except:
-            print ('Error in crawler properties')
+##            print ('Error in crawler properties')
             return None
         if (self.filter is (None or "")):
             self.filter = '*.yaml'

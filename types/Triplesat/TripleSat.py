@@ -239,7 +239,7 @@ class Utilities():
         try:
             dataFile = open(path)
         except:
-            print ("Data file could not be opened")
+#            print ("Data file could not be opened")
             return False
         data = dataFile.read()
         if '<SatelliteID>TripleSat' in data:
@@ -248,7 +248,7 @@ class Utilities():
             try:
                 tree = ET.parse(path)
             except ET.ParseError as e:
-                print ("Exception while parsing {0}\n{1}".format(path, e))
+##                print ("Exception while parsing {0}\n{1}".format(path, e))
                 return None
 
             mission= tree.find('Dataset_Sources/Scene_Source/MISSION')
@@ -284,7 +284,7 @@ class Utilities():
         try:
             tree = ET.parse(path)
         except ET.ParseError as e:
-            print ("Exception while parsing {0}\n{1}".format(path, e))
+##            print ("Exception while parsing {0}\n{1}".format(path, e))
             return None
 
         return self.__getTagFromTree(tree)
@@ -306,7 +306,7 @@ class Utilities():
         try:
             tree = ET.parse(path)
         except ET.ParseError as e:
-            print ("Exception while parsing {0}\n{1}".format(path, e))
+##            print ("Exception while parsing {0}\n{1}".format(path, e))
             return None
 
         return self.getProductName(tree)
