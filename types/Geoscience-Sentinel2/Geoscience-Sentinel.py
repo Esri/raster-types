@@ -699,7 +699,7 @@ class GeoscienceSentinelBuilder():
                 '</MRF_META>\n'.format(inputDir, fileName, cols, rows, dtype, fileName[0:-4], nodata, maxX, maxY, minX, minY, prjString, protocol)
 
         except Exception as exp:
-            log.Message(str(exp), log.const_critical_text)
+#            log.Message(str(exp), log.const_critical_text)
             raise Exception(str(exp))
 
         return cachingMRF
@@ -727,7 +727,7 @@ class GeoscienceSentinelBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 lastIdx = _yamlpath.rfind('/')
 # startIdx= _yamlpath.find('.com')+5  #plus 5 to get the index of the
@@ -1398,7 +1398,7 @@ class GeoscienceSentinelBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 lastIdx = _yamlpath.rfind('/')
                 inputDir = _yamlpath[5:lastIdx]  # along with the bucket name
@@ -2061,7 +2061,7 @@ class GeoscienceSentinelBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 refPoints = doc['grid_spatial']['projection']['geo_ref_points']
                 maxX = refPoints['lr']['x']

@@ -193,7 +193,8 @@ class Utilities():
         try:
             dataFile = open(path)
         except BaseException:
-            print("Data file could not be opened")
+            raise
+#            print("Data file could not be opened")
             return False
         data = dataFile.read()
         if '<SatelliteID>TripleSat' in data:
@@ -202,7 +203,8 @@ class Utilities():
             try:
                 tree = ET.parse(path)
             except ET.ParseError as e:
-                print("Exception while parsing {0}\n{1}".format(path, e))
+                raise
+#                print("Exception while parsing {0}\n{1}".format(path, e))
                 return None
 
             mission = tree.find('Dataset_Sources/Scene_Source/MISSION')
@@ -395,7 +397,7 @@ class TripleSatBuilder():
                         except BaseException:
                             raise Exception(
                                 "Footprint for rasterInfo could not be created")
-                            return None
+#                            return None
 
                     else:
                         # Horizontal CS (can also be a arcpy.SpatialReference object,
@@ -442,7 +444,7 @@ class TripleSatBuilder():
                             except BaseException:
                                 raise Exception(
                                     "Footprint for rasterInfo could not be created")
-                                return None
+                                #return None
 
                 # Read pixel depth for stretch value and pixel type
                 pixelDepthNode = root.find('PixelBits')
@@ -554,7 +556,7 @@ class TripleSatBuilder():
 
                 if fileName is None:
                     raise Exception("path not found")
-                    return None
+#                    return None
 
                 fullPath = os.path.join(os.path.dirname(path), fileName)
 

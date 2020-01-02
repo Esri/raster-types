@@ -262,7 +262,7 @@ class GeoscienceBuilder():
                 '</MRF_META>\n'.format(inputDir, fileName, maxX, maxY, minX, minY, prjString, fileName[0:-4], protocol)
 
         except Exception as exp:
-            log.Message(str(exp), log.const_critical_text)
+#            log.Message(str(exp), log.const_critical_text)
             raise Exception(str(exp))
 
         return cachingMRF
@@ -289,7 +289,7 @@ class GeoscienceBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 lastIdx = _yamlpath.rfind('/')
 # startIdx= _yamlpath.find('.com')+5  #plus 5 to get the index of the
@@ -374,7 +374,7 @@ class GeoscienceBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 lastIdx = _yamlpath.rfind('/')
                 inputDir = _yamlpath[5:lastIdx]  # along with the bucket name
@@ -454,7 +454,7 @@ class GeoscienceBuilder():
                 if (
                         doc is None or 'image' not in doc or 'bands' not in doc['image']):
                     raise Exception('Err. Invalid input format!')
-                    return None
+#                    return None
 
                 NRT01 = os.path.join(
                     yamldir, (doc['image']['bands']['blue']['path']))

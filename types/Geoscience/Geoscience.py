@@ -385,7 +385,8 @@ class GeoscienceBuilder():
                 '</MRF_META>'.format(inputDir, fileName, maxX, maxY, minX, minY, prjString, fileName[0:-4], nCols, nRows, dataType, tag, nBands, protocol, cachePath)
 
         except Exception as exp:
-            arcpy.AddMessage(str(exp))
+#            arcpy.AddMessage(str(exp))
+            raise Exception(str(exp))
         return cachingMRF
 
     # Fractional_cover embedded mrf should not have <data_type> line, hence a
@@ -426,7 +427,7 @@ class GeoscienceBuilder():
                 '</MRF_META>'.format(inputDir, fileName, maxX, maxY, minX, minY, prjString, fileName[0:-4], nCols, nRows, tag, nBands, protocol, cachePath)
 
         except Exception as exp:
-            arcpy.AddMessage(str(exp))
+#            arcpy.AddMessage(str(exp))
             raise Exception(str(exp))
         return cachingMRF
 
@@ -438,7 +439,7 @@ class GeoscienceBuilder():
             Y = data.RasterYSize
             return X, Y
         except Exception as exp:
-            arcpy.AddMessage(str(exp))
+#            arcpy.AddMessage(str(exp))
             raise Exception(str(exp))
 
     def readNembedMRF(self, path):
@@ -449,7 +450,7 @@ class GeoscienceBuilder():
                 cachingMRF = cachingMRF + line
             return cachingMRF
         except Exception as exp:
-            arcpy.AddMessage(str(exp))
+#            arcpy.AddMessage(str(exp))
             raise Exception(str(exp))
 
     def build(self, itemURI):
@@ -482,7 +483,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+#                        return None
 
                     lastIdx = _yamlpath.rfind('/')
                     startIdx = _yamlpath.find('.com') + 5
@@ -632,7 +633,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+                        #return None
                     lastIdx = _yamlpath.rfind('/')
                     # along with the bucket name
                     inputDir = _yamlpath[5:lastIdx]
@@ -775,7 +776,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+#                        return None
 
                     refPoints = doc['grid_spatial']['projection']['geo_ref_points']
                     maxX = refPoints['lr']['x']
@@ -880,7 +881,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+#                        return None
 
                     lastIdx = _yamlpath.rfind('/')
                     startIdx = _yamlpath.find('.com') + 5
@@ -1101,7 +1102,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+#                        return None
                     lastIdx = _yamlpath.rfind('/')
                     # along with the bucket name
                     inputDir = _yamlpath[5:lastIdx]
@@ -1316,7 +1317,7 @@ class GeoscienceBuilder():
                     if (
                             doc is None or 'image' not in doc or 'bands' not in doc['image']):
                         raise Exception('Err. Invalid input format!')
-                        return None
+#                        return None
 
                     yamldir = os.path.dirname(_yamlpath)
                     refPoints = doc['grid_spatial']['projection']['geo_ref_points']
