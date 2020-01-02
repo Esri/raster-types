@@ -34,6 +34,7 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
+
 class DataSourceType():
     Unknown = 0
     File = 1
@@ -50,10 +51,10 @@ class RasterTypeFactory():
         self.acquisitionDate_auxField.type = 'Date'
         self.acquisitionDate_auxField.length = 50
 
-        self.cloudCover_auxField= arcpy.Field()
-        self.cloudCover_auxField.name= 'CloudCover'
-        self.cloudCover_auxField.aliasName= 'Cloud Cover'
-        self.cloudCover_auxField.type= 'Double'
+        self.cloudCover_auxField = arcpy.Field()
+        self.cloudCover_auxField.name = 'CloudCover'
+        self.cloudCover_auxField.aliasName = 'Cloud Cover'
+        self.cloudCover_auxField.type = 'Double'
         self.cloudCover_auxField.precision = 5
 
         self.sunAzimuth_auxField = arcpy.Field()
@@ -92,139 +93,92 @@ class RasterTypeFactory():
         self.viewingAngle_auxField.type = 'Double'
         self.viewingAngle_auxField.precision = 5
 
-        return [
-                {
-                    'rasterTypeName': 'TripleSat',
-                    'builderName': 'TripleSatBuilder',
-                    'description': ("Supports reading of TripleSat "),
-                    'supportsOrthorectification': True,
-                    'enableClipToFootprint': True,
-                    'isRasterProduct': True,
-                    'dataSourceType': (DataSourceType.File | DataSourceType.Folder),
-                    'dataSourceFilter': 'TRIPLESAT*.xml;TR*.dim',
-                    'crawlerName': 'TripleSatCrawler',
-                    'supportedUriFilters': [
-                                            {
-                                                'name': 'LEVEL1B',
-                                                'allowedProducts': [
-                                                                    'L1B'
-                                                                   ],
-                                                'supportsOrthorectification': True,
-                                                'supportedTemplates': [
-                                                                       'Panchromatic',
-                                                                       'Pansharpen',
-                                                                       'Multispectral',
-                                                                       'All Bands'
-                                                                      ]
-                                            } ,
-                                            {
-                                                'name': 'LEVEL2A',
-                                                'allowedProducts': [
-                                                                    'L2A'
-                                                                   ],
-                                                'supportsOrthorectification': True,
-                                                'supportedTemplates': [
-                                                                       'Panchromatic',
-                                                                       'Pansharpen',
-                                                                       'Multispectral',
-                                                                       'All Bands'
-                                                                      ]
-                                            },
-                                            {
-                                                'name': 'LEVEL3A',
-                                                'allowedProducts': [
-                                                                    'L3A'
-                                                                   ],
-                                                'supportsOrthorectification': False,
-                                                'supportedTemplates': [
-                                                                       'Panchromatic',
-                                                                       'Pansharpen',
-                                                                       'Multispectral',
-                                                                       'All Bands'
-                                                                      ]
-                                            }
-                                           ],
-                    'productDefinitionName': 'TripleSat',
-                    'processingTemplates': [
-                                            {
-                                                'name': 'Multispectral',
-                                                'enabled': True,
-                                                'outputDatasetTag': 'MS',
-                                                'primaryInputDatasetTag': 'MS',
-                                                'isProductTemplate': True,
-                                                'functionTemplate': 'TS_stretch_ms.rft.xml'
-                                            },
-                                            {
-                                                'name': 'Panchromatic',
-                                                'enabled': False,
-                                                'outputDatasetTag': 'Pan',
-                                                'primaryInputDatasetTag': 'Pan',
-                                                'isProductTemplate': True,
-                                                'functionTemplate': 'TS_stretch_pan.rft.xml'
-                                            },
-                                            {
-                                                'name': 'Pansharpen',
-                                                'enabled': False,
-                                                'outputDatasetTag': 'Pansharpened',
-                                                'primaryInputDatasetTag': 'MS',
-                                                'isProductTemplate': True,
-                                                'functionTemplate': 'TS_stretch_psh.rft.xml'
-                                            },
-                                            {
-                                                'name': 'All Bands',
-                                                'enabled': False,
-                                                'isProductTemplate': False,
-                                                'functionTemplate': 'TS_stretch_allbands.rft.xml'
-                                            }
-                                           ],
-                    'bandProperties': [
-                                        {
-                                            'bandName': 'Blue',
-                                            'bandIndex': 0,
-                                            'wavelengthMin': 440.0,
-                                            'wavelengthMax': 510.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'Green',
-                                            'bandIndex': 1,
-                                            'wavelengthMin': 510.0,
-                                            'wavelengthMax': 590.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'Red',
-                                            'bandIndex': 2,
-                                            'wavelengthMin': 600.0,
-                                            'wavelengthMax': 670.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'NearInfrared',
-                                            'bandIndex': 3,
-                                            'wavelengthMin': 760.0,
-                                            'wavelengthMax': 910.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'Panchromatic',
-                                            'bandIndex': 0,
-                                            'wavelengthMin': 450.0,
-                                            'wavelengthMax': 650.0,
-                                            'datasetTag': 'Pan'
-                                        }
-                                      ],
-                    'fields': [self.acquisitionDate_auxField,
-                                self.cloudCover_auxField,
-                                self.sunAzimuth_auxField,
-                                self.sunElevation_auxField,
-                                self.sensorAzimuth_auxField,
-                                self.sensorElevation_auxField,
-                                self.sensorName_auxField,
-                                self.viewingAngle_auxField]
-                }
-               ]
-
+        return [{'rasterTypeName': 'TripleSat',
+                 'builderName': 'TripleSatBuilder',
+                 'description': ("Supports reading of TripleSat "),
+                 'supportsOrthorectification': True,
+                 'enableClipToFootprint': True,
+                 'isRasterProduct': True,
+                 'dataSourceType': (DataSourceType.File | DataSourceType.Folder),
+                 'dataSourceFilter': 'TRIPLESAT*.xml;TR*.dim',
+                 'crawlerName': 'TripleSatCrawler',
+                 'supportedUriFilters': [{'name': 'LEVEL1B',
+                                          'allowedProducts': ['L1B'],
+                                          'supportsOrthorectification': True,
+                                          'supportedTemplates': ['Panchromatic',
+                                                                 'Pansharpen',
+                                                                 'Multispectral',
+                                                                 'All Bands']},
+                                         {'name': 'LEVEL2A',
+                                          'allowedProducts': ['L2A'],
+                                          'supportsOrthorectification': True,
+                                          'supportedTemplates': ['Panchromatic',
+                                                                 'Pansharpen',
+                                                                 'Multispectral',
+                                                                 'All Bands']},
+                                         {'name': 'LEVEL3A',
+                                          'allowedProducts': ['L3A'],
+                                          'supportsOrthorectification': False,
+                                          'supportedTemplates': ['Panchromatic',
+                                                                 'Pansharpen',
+                                                                 'Multispectral',
+                                                                 'All Bands']}],
+                 'productDefinitionName': 'TripleSat',
+                 'processingTemplates': [{'name': 'Multispectral',
+                                          'enabled': True,
+                                          'outputDatasetTag': 'MS',
+                                          'primaryInputDatasetTag': 'MS',
+                                          'isProductTemplate': True,
+                                          'functionTemplate': 'TS_stretch_ms.rft.xml'},
+                                         {'name': 'Panchromatic',
+                                          'enabled': False,
+                                          'outputDatasetTag': 'Pan',
+                                          'primaryInputDatasetTag': 'Pan',
+                                          'isProductTemplate': True,
+                                          'functionTemplate': 'TS_stretch_pan.rft.xml'},
+                                         {'name': 'Pansharpen',
+                                          'enabled': False,
+                                          'outputDatasetTag': 'Pansharpened',
+                                          'primaryInputDatasetTag': 'MS',
+                                          'isProductTemplate': True,
+                                          'functionTemplate': 'TS_stretch_psh.rft.xml'},
+                                         {'name': 'All Bands',
+                                          'enabled': False,
+                                          'isProductTemplate': False,
+                                          'functionTemplate': 'TS_stretch_allbands.rft.xml'}],
+                 'bandProperties': [{'bandName': 'Blue',
+                                     'bandIndex': 0,
+                                     'wavelengthMin': 440.0,
+                                     'wavelengthMax': 510.0,
+                                     'datasetTag': 'MS'},
+                                    {'bandName': 'Green',
+                                     'bandIndex': 1,
+                                     'wavelengthMin': 510.0,
+                                     'wavelengthMax': 590.0,
+                                     'datasetTag': 'MS'},
+                                    {'bandName': 'Red',
+                                     'bandIndex': 2,
+                                     'wavelengthMin': 600.0,
+                                     'wavelengthMax': 670.0,
+                                     'datasetTag': 'MS'},
+                                    {'bandName': 'NearInfrared',
+                                     'bandIndex': 3,
+                                     'wavelengthMin': 760.0,
+                                     'wavelengthMax': 910.0,
+                                     'datasetTag': 'MS'},
+                                    {'bandName': 'Panchromatic',
+                                     'bandIndex': 0,
+                                     'wavelengthMin': 450.0,
+                                     'wavelengthMax': 650.0,
+                                     'datasetTag': 'Pan'}],
+                 'fields': [self.acquisitionDate_auxField,
+                            self.cloudCover_auxField,
+                            self.sunAzimuth_auxField,
+                            self.sunElevation_auxField,
+                            self.sensorAzimuth_auxField,
+                            self.sensorElevation_auxField,
+                            self.sensorName_auxField,
+                            self.viewingAngle_auxField]}]
 
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -233,13 +187,13 @@ class RasterTypeFactory():
 
 class Utilities():
 
-    #checks if input data is from TripleSat
+    # checks if input data is from TripleSat
     def isTripleSat(self, path):
         isTS = False
         try:
             dataFile = open(path)
-        except:
-            print ("Data file could not be opened")
+        except BaseException:
+            print("Data file could not be opened")
             return False
         data = dataFile.read()
         if '<SatelliteID>TripleSat' in data:
@@ -248,22 +202,22 @@ class Utilities():
             try:
                 tree = ET.parse(path)
             except ET.ParseError as e:
-                print ("Exception while parsing {0}\n{1}".format(path, e))
+                print("Exception while parsing {0}\n{1}".format(path, e))
                 return None
 
-            mission= tree.find('Dataset_Sources/Scene_Source/MISSION')
+            mission = tree.find('Dataset_Sources/Scene_Source/MISSION')
             if mission is not None:
                 if 'TRIPLESAT' in mission.text:
-                    isTS=True
+                    isTS = True
 
         dataFile.close()
         return isTS
 
     def __getTagFromTree(self, tree):
-        #metadata has one parent root with all relevant metadata under it, hence\
-        #taking the root
+        # metadata has one parent root with all relevant metadata under it, hence\
+        # taking the root
         try:
-            root= tree.getroot()
+            root = tree.getroot()
             nBands = root.find('Bands')
             if nBands is None:
                 nBands = tree.find('Raster_Dimensions/NBANDS')
@@ -275,7 +229,7 @@ class Utilities():
                 return 'Pan'
             if numBands >= 3:
                 return 'MS'
-        except:
+        except BaseException:
             return None
         return None
 
@@ -284,14 +238,14 @@ class Utilities():
         try:
             tree = ET.parse(path)
         except ET.ParseError as e:
-            print ("Exception while parsing {0}\n{1}".format(path, e))
+            print("Exception while parsing {0}\n{1}".format(path, e))
             return None
 
         return self.__getTagFromTree(tree)
 
     def getProductName(self, tree):
-         #returns product level- 1B/2A/3A
-        root=tree.getroot()
+         # returns product level- 1B/2A/3A
+        root = tree.getroot()
         productName = root.find('ProductLevel')
         if productName is None:
             productName = tree.find('Production/PRODUCT_TYPE')
@@ -306,11 +260,10 @@ class Utilities():
         try:
             tree = ET.parse(path)
         except ET.ParseError as e:
-            print ("Exception while parsing {0}\n{1}".format(path, e))
+            print("Exception while parsing {0}\n{1}".format(path, e))
             return None
 
         return self.getProductName(tree)
-
 
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -325,18 +278,18 @@ class TripleSatBuilder():
         self.utilities = Utilities()
 
     def canOpen(self, datasetPath):
-        # Open the datasetPath and check if the metadata file contains the string Deimos
+        # Open the datasetPath and check if the metadata file contains the
+        # string Deimos
 
         return self.utilities.isTripleSat(datasetPath)
 
-
     def build(self, itemURI):
 
-        #constant values for pixel type and stretch based on pixel depth
-        maxStretch16= 8192
-        pixelType16= 5
-        maxStretch8=256
-        pixelType8= 3
+        # constant values for pixel type and stretch based on pixel depth
+        maxStretch16 = 8192
+        pixelType16 = 5
+        maxStretch8 = 256
+        pixelType8 = 3
 
         # Make sure that the itemURI dictionary contains items
         if len(itemURI) <= 0:
@@ -351,96 +304,114 @@ class TripleSatBuilder():
             else:
                 return None
 
-            srsEPSG=0
-            srsWKT=''
+            srsEPSG = 0
+            srsWKT = ''
 
             if path.endswith('.xml'):
                 tree = ET.parse(path)
-                root= tree.getroot()
+                root = tree.getroot()
 
-                bands= root.find('Bands')
+                bands = root.find('Bands')
                 if bands is not None:
-                    noBands= int(bands.text)
+                    noBands = int(bands.text)
 
-                width= root.find('WidthInPixels')
+                width = root.find('WidthInPixels')
                 if width is not None:
-                    cols= int(width.text)
+                    cols = int(width.text)
 
-                height= root.find('HeightInPixels')
+                height = root.find('HeightInPixels')
                 if height is not None:
-                    rows= int(height.text)
+                    rows = int(height.text)
 
-                scenePathNode= root.find('ScenePath')
+                scenePathNode = root.find('ScenePath')
                 if scenePathNode is not None:
-                    scenePath= int(scenePathNode.text)
+                    scenePath = int(scenePathNode.text)
 
-                sceneRowNode= root.find('SceneRow')
+                sceneRowNode = root.find('SceneRow')
                 if sceneRowNode is not None:
-                    sceneRow= int(sceneRowNode.text)
+                    sceneRow = int(sceneRowNode.text)
 
-                id= root.find('SatelliteID')
+                id = root.find('SatelliteID')
                 if id is not None:
-                    satelliteID= id.text
+                    satelliteID = id.text
 
                 # Dataset path: same name as the xml file
-                fileName= os.path.splitext(path)[0] + '.tiff'
+                fileName = os.path.splitext(path)[0] + '.tiff'
                 fullPath = os.path.join(os.path.dirname(path), fileName)
 
-                wgsSrs= arcpy.SpatialReference(4326)
-                # Dataset frame - footprint; this is a list of Vertex coordinates
+                wgsSrs = arcpy.SpatialReference(4326)
+                # Dataset frame - footprint; this is a list of Vertex
+                # coordinates
                 vertex_array = arcpy.Array()
-                tlY= root.find('TopLeftLatitude')
-                tlX= root.find('TopLeftLongitude')
-                trY= root.find('TopRightLatitude')
-                trX= root.find('TopRightLongitude')
-                brY= root.find('BottomRightLatitude')
-                brX= root.find('BottomRightLongitude')
-                blY= root.find('BottomLeftLatitude')
-                blX= root.find('BottomLeftLongitude')
+                tlY = root.find('TopLeftLatitude')
+                tlX = root.find('TopLeftLongitude')
+                trY = root.find('TopRightLatitude')
+                trX = root.find('TopRightLongitude')
+                brY = root.find('BottomRightLatitude')
+                brX = root.find('BottomRightLongitude')
+                blY = root.find('BottomLeftLatitude')
+                blX = root.find('BottomLeftLongitude')
 
                 if tlX is not None and tlY is not None and trX is not None and trY is\
-                      not None and brX is not None and brY is not None and\
-                      blX is not None and blY is not None:
-                    vertex_array.add(arcpy.Point(float(tlX.text),float(tlY.text)))
-                    vertex_array.add(arcpy.Point(float(trX.text),float(trY.text)))
-                    vertex_array.add(arcpy.Point(float(brX.text),float(brY.text)))
-                    vertex_array.add(arcpy.Point(float(blX.text),float(blY.text)))
+                        not None and brX is not None and brY is not None and\
+                        blX is not None and blY is not None:
+                    vertex_array.add(
+                        arcpy.Point(
+                            float(
+                                tlX.text), float(
+                                tlY.text)))
+                    vertex_array.add(
+                        arcpy.Point(
+                            float(
+                                trX.text), float(
+                                trY.text)))
+                    vertex_array.add(
+                        arcpy.Point(
+                            float(
+                                brX.text), float(
+                                brY.text)))
+                    vertex_array.add(
+                        arcpy.Point(
+                            float(
+                                blX.text), float(
+                                blY.text)))
 
-                footprint_geometry = arcpy.Polygon(vertex_array,wgsSrs)
+                footprint_geometry = arcpy.Polygon(vertex_array, wgsSrs)
 
-
-                productLevel= root.find('ProductLevel')
+                productLevel = root.find('ProductLevel')
                 if productLevel is not None:
-                    productType= productLevel.text
+                    productType = productLevel.text
 
                     # Metadata for L1B does not contain map projection and map extent,\
-                # EPSG of WGS and vertex extents are considered for srs and rasterInfo footprint
-                    if productType=='LEVEL1B':
-                         try:
-                            xMin= float(tlX.text)
-                            yMin= float(brY.text)
-                            xMax= float(brX.text)
-                            yMax= float(tlY.text)
-                            srsEPSG= 4326
-                         except:
-                            print ("Footprint for rasterInfo could not be created")
+                # EPSG of WGS and vertex extents are considered for srs and
+                # rasterInfo footprint
+                    if productType == 'LEVEL1B':
+                        try:
+                            xMin = float(tlX.text)
+                            yMin = float(brY.text)
+                            xMax = float(brX.text)
+                            yMax = float(tlY.text)
+                            srsEPSG = 4326
+                        except BaseException:
+                            raise Exception(
+                                "Footprint for rasterInfo could not be created")
                             return None
 
                     else:
                         # Horizontal CS (can also be a arcpy.SpatialReference object,
                         # ESPG code, path to a PRJ file or a WKT string)
 
-                        #UTM Zone is not mentioned in metadata, calculating North/South \
-                        #on basis of latitude-longitude values
-                        centerLatPath= root.find('CenterLatitude')
-                        centerLngPath= root.find('CenterLongitude')
+                        # UTM Zone is not mentioned in metadata, calculating North/South \
+                        # on basis of latitude-longitude values
+                        centerLatPath = root.find('CenterLatitude')
+                        centerLngPath = root.find('CenterLongitude')
                         if centerLatPath is not None:
-                            centerLat= float(centerLatPath.text)
+                            centerLat = float(centerLatPath.text)
                         if centerLngPath is not None:
-                            centerLng= float(centerLngPath.text)
+                            centerLng = float(centerLngPath.text)
 
-                        lngd = round(centerLng,7)
-                        latd = round(centerLat,8)
+                        lngd = round(centerLng, 7)
+                        latd = round(centerLat, 8)
 
                         phi = math.radians(latd)
                         if (phi < 0):
@@ -448,30 +419,30 @@ class TripleSatBuilder():
                         else:
                             uZone = 'N'
 
-                        utmz = 1 + math.floor((lngd+180)/6)
-                        utmZone = str(int(utmz))+uZone
+                        utmz = 1 + math.floor((lngd + 180) / 6)
+                        utmZone = str(int(utmz)) + uZone
 
-                        #eg. WGS 1984 UTM 39N
-                        prjStr = 'WGS 1984 UTM zone '+utmZone
+                        # eg. WGS 1984 UTM 39N
+                        prjStr = 'WGS 1984 UTM zone ' + utmZone
                         utmSpatialRef = arcpy.SpatialReference(prjStr)
-                        srsEPSG= utmSpatialRef.PCSCode
+                        srsEPSG = utmSpatialRef.PCSCode
 
                         # rasterInfo footprint for L2A
-                        minX= root.find('TopLeftMapX')
-                        minY= root.find('BottomRightMapY')
-                        maxX= root.find('BottomRightMapX')
-                        maxY= root.find('TopLeftMapY')
+                        minX = root.find('TopLeftMapX')
+                        minY = root.find('BottomRightMapY')
+                        maxX = root.find('BottomRightMapX')
+                        maxY = root.find('TopLeftMapY')
                         if minX is not None and minY is not None and maxX\
-                          is not None and maxY is not None:
+                                is not None and maxY is not None:
                             try:
-                                xMin= float(minX.text)
-                                yMin= float(minY.text)
-                                xMax= float(maxX.text)
-                                yMax= float(maxY.text)
-                            except:
-                                print ("Footprint for rasterInfo could not be created")
+                                xMin = float(minX.text)
+                                yMin = float(minY.text)
+                                xMax = float(maxX.text)
+                                yMax = float(maxY.text)
+                            except BaseException:
+                                raise Exception(
+                                    "Footprint for rasterInfo could not be created")
                                 return None
-
 
                 # Read pixel depth for stretch value and pixel type
                 pixelDepthNode = root.find('PixelBits')
@@ -480,7 +451,7 @@ class TripleSatBuilder():
 
                 if pixelDepth == 16:
                     maxInput = maxStretch16
-                    pixelType= pixelType16
+                    pixelType = pixelType16
                 if pixelDepth == 8:
                     maxInput = maxStretch8
                     pixelType = pixelType8
@@ -490,22 +461,23 @@ class TripleSatBuilder():
 
                 # Band info(part of metadata) - gain, bias etc
 
-                #band order for Multispectral
-                bandOrder=['Blue','Green','Red','NearInfrared']
-                gainNode= root.find('Gain')
-                offsetNode= root.find('Offset')
+                # band order for Multispectral
+                bandOrder = ['Blue', 'Green', 'Red', 'NearInfrared']
+                gainNode = root.find('Gain')
+                offsetNode = root.find('Offset')
                 if gainNode is not None and offsetNode is not None:
                     # reading gain and offset values as a list from metadata
-                    gain= [float(band) for band in (gainNode.text).split(',')]
-                    offset= [float(band) for band in (offsetNode.text).split(',')]
+                    gain = [float(band) for band in (gainNode.text).split(',')]
+                    offset = [float(band)
+                              for band in (offsetNode.text).split(',')]
 
                     for i in range(len(gain)):
                         bandProperty = {}
 
-                        if len(gain)==1:
-                            bandProperty['bandName']='Panchromatic'
+                        if len(gain) == 1:
+                            bandProperty['bandName'] = 'Panchromatic'
                         else:
-                            bandProperty['bandName']= bandOrder[i]
+                            bandProperty['bandName'] = bandOrder[i]
 
                         bandProperty['RadianceGain'] = gain[i]
 
@@ -541,50 +513,53 @@ class TripleSatBuilder():
                     metadata['SensorAzimuth'] = float(sensorAzimuth.text)
 
                 # calculating the Viewing angle/Off Nadir angle
-                pitchSat= root.find('PitchSatelliteAngle')
-                rollSat= root.find('RollSatelliteAngle')
+                pitchSat = root.find('PitchSatelliteAngle')
+                rollSat = root.find('RollSatelliteAngle')
                 if pitchSat is not None and rollSat is not None:
-                    pitchAng= float(pitchSat.text)
-                    rollAng= float(rollSat.text)
-                    viewAngle= math.sqrt((pitchAng**2 + rollAng**2))
-                    metadata['OffNadir']= viewAngle
+                    pitchAng = float(pitchSat.text)
+                    rollAng = float(rollSat.text)
+                    viewAngle = math.sqrt((pitchAng**2 + rollAng**2))
+                    metadata['OffNadir'] = viewAngle
 
-                cloud= root.find('CloudPercent')
+                cloud = root.find('CloudPercent')
                 if cloud is not None:
                     if cloud.text is not None:
-                        cloudCover= float(cloud.text)
+                        cloudCover = float(cloud.text)
                     else:
-                        cloudCover= None
+                        cloudCover = None
 
                 metadata['ScenePath'] = scenePath
                 metadata['SceneRow'] = sceneRow
-                metadata['CloudCover']=cloudCover
-
+                metadata['CloudCover'] = cloudCover
 
             elif path.endswith('.dim'):
                 tree = ET.parse(path)
 
                 srsWKT = 0
-                projectionNode = tree.find('Coordinate_Reference_System/PROJECTION')
+                projectionNode = tree.find(
+                    'Coordinate_Reference_System/PROJECTION')
                 if projectionNode is None:
-                    projectionNode = tree.find('Dataset_Sources/Source_Information/Coordinate_Reference_System/Projection_OGCWKT')
+                    projectionNode = tree.find(
+                        'Dataset_Sources/Source_Information/Coordinate_Reference_System/Projection_OGCWKT')
 
                 if projectionNode is not None:
                     srsWKT = projectionNode.text
 
                 # Dataset path
                 fileName = None
-                filePathNode = tree.find('Data_Access/Data_File/DATA_FILE_PATH')
+                filePathNode = tree.find(
+                    'Data_Access/Data_File/DATA_FILE_PATH')
                 if filePathNode is not None:
                     fileName = filePathNode.attrib['href']
 
                 if fileName is None:
-                    print ("path not found")
+                    raise Exception("path not found")
                     return None
 
                 fullPath = os.path.join(os.path.dirname(path), fileName)
 
-                # Dataset frame - footprint; this is a list of Vertex coordinates
+                # Dataset frame - footprint; this is a list of Vertex
+                # coordinates
                 vertex_array = arcpy.Array()
                 all_vertex = tree.find('Dataset_Frame')
                 if all_vertex is not None:
@@ -596,22 +571,21 @@ class TripleSatBuilder():
                             frame_y = float(y_vertex.text)
                             vertex_array.add(arcpy.Point(frame_x, frame_y))
 
-                    xMin= float(all_vertex[3].find('FRAME_LON').text)
-                    xMax= float(all_vertex[1].find('FRAME_LON').text)
-                    yMin= float(all_vertex[0].find('FRAME_LAT').text)
-                    yMax= float(all_vertex[2].find('FRAME_LAT').text)
+                    xMin = float(all_vertex[3].find('FRAME_LON').text)
+                    xMax = float(all_vertex[1].find('FRAME_LON').text)
+                    yMin = float(all_vertex[0].find('FRAME_LAT').text)
+                    yMax = float(all_vertex[2].find('FRAME_LAT').text)
 
-                footprint_geometry = arcpy.Polygon(vertex_array,srsWKT)
+                footprint_geometry = arcpy.Polygon(vertex_array, srsWKT)
 
                 # Read pixel depth from dim file
                 pixelDepthNode = tree.find('Raster_Encoding/NBITS')
                 if pixelDepthNode is not None:
                     pixelDepth = int(pixelDepthNode.text)
 
-
                 if pixelDepth == 16:
                     maxInput = maxStretch16
-                    pixelType= pixelType16
+                    pixelType = pixelType16
                 if pixelDepth == 8:
                     maxInput = maxStretch8
                     pixelType = pixelType8
@@ -621,7 +595,7 @@ class TripleSatBuilder():
 
                 # Band info(part of metadata) - gain, bias etc
                 img_interpretation = tree.find('Image_Interpretation')
-                img_display= tree.find('Image_Display')
+                img_display = tree.find('Image_Display')
                 noOfChildren = len(img_display.getchildren())
 
                 if img_interpretation is not None:
@@ -659,31 +633,30 @@ class TripleSatBuilder():
                             bandProperty['unit'] = unit.text
 
                         if img_display is not None:
-                            for i in range(2,noOfChildren):
-                                child= img_display.getchildren()[i]
-                                if int(child.getchildren()[0].text) == band_num :
-                                    min_= float(child.getchildren()[3].text)
-                                    max_= float(child.getchildren()[4].text)
-                                    stdv= float(child.getchildren()[1].text)
-                                    mean= float(child.getchildren()[2].text)
-                                    bandProperty['statistics'] = {'minimum':min_,
-                                                                'maximum':max_,
-                                                                    'mean':mean,
-                                                                        'standardDeviation':stdv}
+                            for i in range(2, noOfChildren):
+                                child = img_display.getchildren()[i]
+                                if int(
+                                        child.getchildren()[0].text) == band_num:
+                                    min_ = float(child.getchildren()[3].text)
+                                    max_ = float(child.getchildren()[4].text)
+                                    stdv = float(child.getchildren()[1].text)
+                                    mean = float(child.getchildren()[2].text)
+                                    bandProperty['statistics'] = {
+                                        'minimum': min_, 'maximum': max_, 'mean': mean, 'standardDeviation': stdv}
 
                         bandProperties.append(bandProperty)
 
-                dimension= tree.find('Raster_Dimensions')
+                dimension = tree.find('Raster_Dimensions')
                 if dimension is not None:
                     nCols = dimension.find('NCOLS')
                 if nCols is not None:
-                    cols= int(nCols.text)
-                nRows= dimension.find('NROWS')
+                    cols = int(nCols.text)
+                nRows = dimension.find('NROWS')
                 if nRows is not None:
-                    rows= int(nRows.text)
+                    rows = int(nRows.text)
                 nBands = dimension.find('NBANDS')
                 if nBands is not None:
-                    noBands= int(nBands.text)
+                    noBands = int(nBands.text)
 
                 # Other metadata information (Sun elevation, azimuth etc)
                 metadata = {}
@@ -724,11 +697,12 @@ class TripleSatBuilder():
                         metadata['SunDistance'] = float(sunDistance.text)
 
                 # Get the Cloud Cover
-                qaChildren=tree.find('Dataset_Sources/Source_Information/Quality_Assessment').getchildren()
+                qaChildren = tree.find(
+                    'Dataset_Sources/Source_Information/Quality_Assessment').getchildren()
                 for qaChild in qaChildren:
                     qpChildren = qaChild.getchildren()
                     if len(qpChildren) > 0:
-                        if qpChildren[0].text=="CLOUD_COVER_PERCENTAGE":
+                        if qpChildren[0].text == "CLOUD_COVER_PERCENTAGE":
                             if qpChildren[2].text is not None:
                                 cloudCover = float(qpChildren[2].text)
 
@@ -737,37 +711,37 @@ class TripleSatBuilder():
 
             # adding RPC parameters from rpb file available in dataset
             try:
-                coeffVal=[]
+                coeffVal = []
                 try:
-                    rpcPath= os.path.splitext(path)[0]+'_rpc.txt'
-                    data=open(rpcPath,'r')
-                except:
-                    print ("RPC file could not be opened")
+                    rpcPath = os.path.splitext(path)[0] + '_rpc.txt'
+                    data = open(rpcPath, 'r')
+                except BaseException:
+                    raise Exception("RPC file could not be opened")
 
-                rpcData= data.read()
-                rpc= rpcData.replace(': ',':').split('\n')
-                coeffVal= [ float(val.split(' ')[0].split(':')[1]) for val in rpc]
+                rpcData = data.read()
+                rpc = rpcData.replace(': ', ':').split('\n')
+                coeffVal = [float(val.split(' ')[0].split(':')[1])
+                            for val in rpc]
             except Exception:
-                coeffVal=[]
-            RPC={
+                coeffVal = []
+            RPC = {
                 'GeodataTransforms': [
-                                        {
-                                            'geodataTransform' : 'RPC',
-                                            'geodataTransformArguments' : {
-                                                                            'coeff' : coeffVal
-                                                                          }
-                                        }
-                        ]
-                }
+                    {
+                        'geodataTransform': 'RPC',
+                                            'geodataTransformArguments': {
+                                                'coeff': coeffVal
+                                            }
+                    }
+                ]
+            }
             try:
-                geoDataTransform = str(RPC) #.replace( "'", '"')
+                geoDataTransform = str(RPC)  # .replace( "'", '"')
             except Exception:
-                geoDataTransform=''
+                geoDataTransform = ''
 
             metadata['SensorName'] = self.SensorName
             metadata['bandProperties'] = bandProperties
             metadata['ProductType'] = self.utilities.getProductName(tree)
-
 
             # define a dictionary of variables
             variables = {}
@@ -776,43 +750,43 @@ class TripleSatBuilder():
 
             # define a dictionary with information that helps to add raster product\
             # without opening the datafile
-            rasterInfo={}
-            rasterInfo['pixelType']= pixelType
-            rasterInfo['nCols']= cols
-            rasterInfo['nRows']= rows
-            rasterInfo['nBands']= noBands
+            rasterInfo = {}
+            rasterInfo['pixelType'] = pixelType
+            rasterInfo['nCols'] = cols
+            rasterInfo['nRows'] = rows
+            rasterInfo['nBands'] = noBands
 
             if srsEPSG:
-                rasterInfo['spatialReference']= srsEPSG
+                rasterInfo['spatialReference'] = srsEPSG
             else:
-                rasterInfo['spatialReference']= srsWKT
+                rasterInfo['spatialReference'] = srsWKT
 
-            rasterInfo['geodataXform']= geoDataTransform
-            rasterInfo['XMin']= xMin
-            rasterInfo['YMin']= yMin
-            rasterInfo['XMax']= xMax
-            rasterInfo['YMax']= yMax
+            rasterInfo['geodataXform'] = geoDataTransform
+            rasterInfo['XMin'] = xMin
+            rasterInfo['YMin'] = yMin
+            rasterInfo['XMax'] = xMax
+            rasterInfo['YMax'] = yMax
 
             # Assemble everything into an outgoing dictionary
             builtItem = {}
-            builtItem['raster'] = {'uri': fullPath , 'rasterInfo': rasterInfo}
+            builtItem['raster'] = {'uri': fullPath, 'rasterInfo': rasterInfo}
             builtItem['footprint'] = footprint_geometry
             builtItem['keyProperties'] = metadata
             builtItem['variables'] = variables
             builtItem['itemUri'] = itemURI
 
             if srsEPSG:
-                builtItem['spatialReference']= srsEPSG
+                builtItem['spatialReference'] = srsEPSG
             else:
-                builtItem['spatialReference']= srsWKT
+                builtItem['spatialReference'] = srsWKT
 
-            builtItem['noData']= [0]
+            builtItem['noData'] = [0]
 
             builtItemsList = list()
             builtItemsList.append(builtItem)
             return builtItemsList
 
-        except:
+        except BaseException:
             raise
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -836,19 +810,20 @@ class TripleSatCrawler():
             return None
 
     def createGenerator(self):
-        fileFilter= self.filter.split(';')
-        fileFilter= list(filter(None,fileFilter))
+        fileFilter = self.filter.split(';')
+        fileFilter = list(filter(None, fileFilter))
 
         for path in self.paths:
             if not os.path.exists(path):
                 continue
 
-            #handles paths with different folder levels
+            # handles paths with different folder levels
             if os.path.isdir(path):
                 if self.recurse:
                     for root, dirs, files in (os.walk(path)):
                         for file in (files):
-                            if file.endswith(fileFilter[0][1:]) or file.endswith(fileFilter[1][1:]):
+                            if file.endswith(fileFilter[0][1:]) or file.endswith(
+                                    fileFilter[1][1:]):
                                 filename = os.path.join(root, file)
                                 yield filename
                 else:
@@ -863,7 +838,8 @@ class TripleSatCrawler():
                     rasterFieldIndex = -1
                     firstRow = next(reader)
 
-                    #Check for the 'raster' field in the csv file, if not present take the first field as input data
+                    # Check for the 'raster' field in the csv file, if not
+                    # present take the first field as input data
                     for attribute in firstRow:
                         if attribute.lower() == 'raster':
                             rasterFieldIndex = firstRow.index(attribute)
@@ -875,17 +851,18 @@ class TripleSatCrawler():
 
                     for row in reader:
                         filename = row[rasterFieldIndex]
-                        if (filename.endswith(fileFilter[0][1:]) or file.endswith(fileFilter[1][1:])) and os.path.exists(filename):
+                        if (filename.endswith(fileFilter[0][1:]) or file.endswith(
+                                fileFilter[1][1:])) and os.path.exists(filename):
                             yield filename
 
             elif path.endswith(fileFilter[0][1:]) or path.endswith(fileFilter[1][1:]):
-                paths=[path]
-                path2=''
+                paths = [path]
+                path2 = ''
                 # enables Pansharpen option in raster products
                 if 'MUX' in path:
-                    path2= path.replace('MUX','PAN')
+                    path2 = path.replace('MUX', 'PAN')
                 elif 'PAN' in path:
-                    path2= path.replace('PAN','MUX')
+                    path2 = path.replace('PAN', 'MUX')
 
                 # if corresponding MUX/PAN file exists, create the URI which\
                 # will be used to enable Pansharpen
@@ -895,12 +872,11 @@ class TripleSatCrawler():
                 for pathName in paths:
                     yield pathName
 
-
     def __iter__(self):
         return self
 
     def next(self):
-        ## Return URI dictionary to Builder
+        # Return URI dictionary to Builder
         return self.getNextUri()
 
     def getNextUri(self):
@@ -910,7 +886,8 @@ class TripleSatCrawler():
             curTag = self.utils.getTag(self.curPath)
             productName = self.utils.getProductNameFromFile(self.curPath)
 
-            #If the tag or productName was not found in the metadata file or there was some exception raised, we move on to the next item
+            # If the tag or productName was not found in the metadata file or
+            # there was some exception raised, we move on to the next item
             if curTag is None or productName is None:
                 return self.getNextUri()
 
@@ -918,11 +895,11 @@ class TripleSatCrawler():
             return None
 
         uri = {
-                'path': self.curPath,
-                'displayName': os.path.splitext(os.path.basename(self.curPath))[0],
-                'tag': curTag,
-                'groupName': os.path.split(os.path.dirname(self.curPath))[1],
-                'productName': productName
-              }
+            'path': self.curPath,
+            'displayName': os.path.splitext(os.path.basename(self.curPath))[0],
+            'tag': curTag,
+            'groupName': os.path.split(os.path.dirname(self.curPath))[1],
+            'productName': productName
+        }
 
         return uri

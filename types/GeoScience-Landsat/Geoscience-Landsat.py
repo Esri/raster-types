@@ -32,17 +32,18 @@ try:
     import yaml
     import boto3
 except ImportError as e:
-    print ('Err. {}'.format(str(e)))
-    exit(1)
+    raise
+
 
 class DataSourceType():
     File = 1
     Folder = 2
 
+
 class RasterTypeFactory():
 
     def getRasterTypesInfo(self):
-        self.dacq_auxField = arcpy.Field()              #Creation Date
+        self.dacq_auxField = arcpy.Field()  # Creation Date
         self.dacq_auxField.name = 'AcquisitionDate'
         self.dacq_auxField.aliasName = 'Acquisition Date'
         self.dacq_auxField.type = 'date'
@@ -72,140 +73,136 @@ class RasterTypeFactory():
         self.id_auxField.length = 50
 
         return [
-                {
-                    'rasterTypeName': 'Geoscience-Landsat',
-                    'builderName': 'GeoscienceBuilder',
-                    'description': ("Supports reading of Geoscience Landsat8 nbart data"),
-                    'enableClipToFootprint': True,
-                    'isRasterProduct': False,
-                    'dataSourceType': (DataSourceType.File | DataSourceType.Folder),
-                    'dataSourceFilter': '*.yaml',
-                    'crawlerName': 'GeoscienceCrawler',
-                    'productDefinitionName': 'Geoscience-Landsat',
-                    'supportedUriFilters': [
-                                            {
-                                                'name': 'Level2',
-                                                'allowedProducts': [
-                                                                    'L8ARD',
-                                                                   ],
-                                                'supportsOrthorectification': True,
-                                                'enableClipToFootprint': True,
-                                                'supportedTemplates': [
-                                                                       'Geoscience_MS_NBART'
-                                                                      ]
-                                            }
+            {
+                'rasterTypeName': 'Geoscience-Landsat',
+                'builderName': 'GeoscienceBuilder',
+                'description': ("Supports reading of Geoscience Landsat8 nbart data"),
+                'enableClipToFootprint': True,
+                'isRasterProduct': False,
+                'dataSourceType': (DataSourceType.File | DataSourceType.Folder),
+                'dataSourceFilter': '*.yaml',
+                'crawlerName': 'GeoscienceCrawler',
+                'productDefinitionName': 'Geoscience-Landsat',
+                'supportedUriFilters': [
+                    {
+                        'name': 'Level2',
+                        'allowedProducts': [
+                                'L8ARD',
+                        ],
+                        'supportsOrthorectification': True,
+                        'enableClipToFootprint': True,
+                        'supportedTemplates': [
+                            'Geoscience_MS_NBART'
+                        ]
+                    }
 
-                                           ],
-                    'processingTemplates': [
-                                            {
-                                                'name': 'Geoscience_MS_NBART',
-                                                'enabled': True,
-                                                'outputDatasetTag': 'NBART',
-                                                'primaryInputDatasetTag': 'NBART',
-                                                'isProductTemplate': True,
-                                                'functionTemplate': 'Geoscience_MS_NBART.rft.xml'
-                                            }
-                                           ],
-                    #GET THE CORRECT BAND INDEX , MIN MAX WAVELENGTH
-                    'bandProperties': [
-                                        {
-                                            'bandName': 'blue',
-                                            'bandIndex': 1,
-                                            'wavelengthMin': 452.0,
-                                            'wavelengthMax': 512.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'green',
-                                            'bandIndex': 2,
-                                            'wavelengthMin': 533.0,
-                                            'wavelengthMax': 590.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                         {
-                                            'bandName': 'nir',
-                                            'bandIndex': 4,
-                                            'wavelengthMin': 851.0,
-                                            'wavelengthMax': 879.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'red',
-                                            'bandIndex': 3,
-                                            'wavelengthMin': 636.0,
-                                            'wavelengthMax': 673.0,
-                                            'datasetTag': 'MS'
-                                        },
-                                        {
-                                            'bandName': 'swir1',
-                                            'bandIndex': 5,
-                                            'wavelengthMin': 1566.0,
-                                            'wavelengthMax': 1651.0,
-                                            'datasetTag': 'SWIR'
-                                        },
-                                        {
-                                            'bandName': 'swir2',
-                                            'bandIndex': 6,
-                                            'wavelengthMin': 2107.0,
-                                            'wavelengthMax': 2294.0,
-                                            'datasetTag': 'SWIR'
-                                        }
-                                      ],
-                    #GET THE CORRECT BAND INDEX , MIN MAX WAVELENGTH
+                ],
+                'processingTemplates': [
+                    {
+                        'name': 'Geoscience_MS_NBART',
+                        'enabled': True,
+                        'outputDatasetTag': 'NBART',
+                        'primaryInputDatasetTag': 'NBART',
+                        'isProductTemplate': True,
+                        'functionTemplate': 'Geoscience_MS_NBART.rft.xml'
+                    }
+                ],
+                # GET THE CORRECT BAND INDEX , MIN MAX WAVELENGTH
+                'bandProperties': [
+                    {
+                        'bandName': 'blue',
+                        'bandIndex': 1,
+                        'wavelengthMin': 452.0,
+                        'wavelengthMax': 512.0,
+                        'datasetTag': 'MS'
+                    },
+                    {
+                        'bandName': 'green',
+                        'bandIndex': 2,
+                        'wavelengthMin': 533.0,
+                        'wavelengthMax': 590.0,
+                        'datasetTag': 'MS'
+                    },
+                    {
+                        'bandName': 'nir',
+                        'bandIndex': 4,
+                        'wavelengthMin': 851.0,
+                        'wavelengthMax': 879.0,
+                        'datasetTag': 'MS'
+                    },
+                    {
+                        'bandName': 'red',
+                        'bandIndex': 3,
+                        'wavelengthMin': 636.0,
+                        'wavelengthMax': 673.0,
+                        'datasetTag': 'MS'
+                    },
+                    {
+                        'bandName': 'swir1',
+                        'bandIndex': 5,
+                        'wavelengthMin': 1566.0,
+                        'wavelengthMax': 1651.0,
+                        'datasetTag': 'SWIR'
+                    },
+                    {
+                        'bandName': 'swir2',
+                        'bandIndex': 6,
+                        'wavelengthMin': 2107.0,
+                        'wavelengthMax': 2294.0,
+                        'datasetTag': 'SWIR'
+                    }
+                ],
+                # GET THE CORRECT BAND INDEX , MIN MAX WAVELENGTH
 
-                    'fields': [self.dacq_auxField,
-                               self.platform_auxField,
-                               self.instrument_auxField,
-                               self.prodtype_auxField,
-                               self.id_auxField]
-                }
-               ]
+                'fields': [self.dacq_auxField,
+                           self.platform_auxField,
+                           self.instrument_auxField,
+                           self.prodtype_auxField,
+                           self.id_auxField]
+            }
+        ]
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
 # Utility functions used by the Builder and Crawler classes
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
 
+
 class Utilities():
 
-    def readYaml(self,path):        #to read the yaml file located locally.
+    def readYaml(self, path):  # to read the yaml file located locally.
         try:
             with open(path, 'r') as q:
                 try:
                     doc = (yaml.load(q))
                 except yaml.YAMLError as exc:
-                    print(exc)
-                    return None
+                    raise
                 return doc
-        except:
-            print ("Error in opening yaml file")
-            return None
+        except BaseException:
+            raise
 
-    def readYamlS3(self,path):          #to read the yaml file located on S3
-        page=requests.get(path,stream=True,timeout=None)
+    def readYamlS3(self, path):  # to read the yaml file located on S3
+        page = requests.get(path, stream=True, timeout=None)
         try:
-            doc= (yaml.load(page.content))
+            doc = (yaml.load(page.content))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
 
-    def readYamlS3_boto3(self,bucket,path):          #to read the yaml file located on S3
+    def readYamlS3_boto3(self, bucket, path):  # to read the yaml file located on S3
         client = boto3.client('s3')
         try:
-            page = client.get_object(Bucket=bucket,Key=path)
+            page = client.get_object(Bucket=bucket, Key=path)
             doc = (yaml.load(page['Body'].read()))
         except yaml.YAMLError as exc:
-            print(exc)
-            return None
+            raise
         return doc
-
 
     def getProductName(self, doc):
         try:
             productName = doc['product_type']
             if (productName is not None):
                 return productName
-        except:
+        except BaseException:
             return None
         return None
 
@@ -214,10 +211,9 @@ class Utilities():
             processingLevel = doc['processing_level']
             if (processingLevel is not None):
                 return processingLevel
-        except:
+        except BaseException:
             return None
         return None
-
 
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
@@ -233,10 +229,19 @@ class GeoscienceBuilder():
     def canOpen(self, datasetPath):
         return True
 
-    def embedMRF(self,inputDir,fileName,maxX,maxY,minX,minY,prjString,protocol):
+    def embedMRF(
+            self,
+            inputDir,
+            fileName,
+            maxX,
+            maxY,
+            minX,
+            minY,
+            prjString,
+            protocol):
 
         try:
-            #create template for 10m resolution and write to a file
+            # create template for 10m resolution and write to a file
             cachingMRF = \
                 '<MRF_META>\n'  \
                 '  <CachedSource>\n'  \
@@ -254,13 +259,13 @@ class GeoscienceBuilder():
                 '    <Projection>{6}</Projection>\n'  \
                 '  </GeoTags>\n'  \
                 '  <Options>V2=ON</Options>\n'  \
-                '</MRF_META>\n'.format(inputDir,fileName,maxX,maxY,minX,minY,prjString,fileName[0:-4],protocol)
+                '</MRF_META>\n'.format(inputDir, fileName, maxX, maxY, minX, minY, prjString, fileName[0:-4], protocol)
 
         except Exception as exp:
-            log.Message(str(exp),log.const_critical_text)
+            log.Message(str(exp), log.const_critical_text)
+            raise Exception(str(exp))
 
         return cachingMRF
-
 
     def build(self, itemURI):
      # Make sure that the itemURI dictionary contains items
@@ -269,160 +274,321 @@ class GeoscienceBuilder():
         try:
             # ItemURI dictionary passed from crawler containing
             # path, tag, display name, group name, product type
-            path=None
+            path = None
             if ('path' in itemURI):
                 _yamlpath = itemURI['path']
             else:
                 return None
 
-            #for each band in the image generate the path
-            NRT01=NRT02=NRT03=NRT04=NRT05=NRT06=""
+            # for each band in the image generate the path
+            NRT01 = NRT02 = NRT03 = NRT04 = NRT05 = NRT06 = ""
             yamldir = os.path.dirname(_yamlpath)
 
             if (_yamlpath.startswith("http:")):
                 doc = self.utils.readYamlS3(_yamlpath)
-                if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
-                    return False
+                if (
+                        doc is None or 'image' not in doc or 'bands' not in doc['image']):
+                    raise Exception('Err. Invalid input format!')
+                    return None
 
-                lastIdx= _yamlpath.rfind('/')
-##                startIdx= _yamlpath.find('.com')+5  #plus 5 to get the index of the character after .com/
-                inputDir= _yamlpath[7:lastIdx]  #along with the bucket name
-                protocol ='vsicurl/http://'
-                refPoints= doc['grid_spatial']['projection']['geo_ref_points']
-                maxX= refPoints['lr']['x']
-                maxY= refPoints['ur']['y']
-                minX= refPoints['ll']['x']
-                minY= refPoints['ll']['y']
+                lastIdx = _yamlpath.rfind('/')
+# startIdx= _yamlpath.find('.com')+5  #plus 5 to get the index of the
+# character after .com/
+                inputDir = _yamlpath[7:lastIdx]  # along with the bucket name
+                protocol = 'vsicurl/http://'
+                refPoints = doc['grid_spatial']['projection']['geo_ref_points']
+                maxX = refPoints['lr']['x']
+                maxY = refPoints['ur']['y']
+                minX = refPoints['ll']['x']
+                minY = refPoints['ll']['y']
 
-                spatialRef= doc['grid_spatial']['projection']['spatial_reference']
-                spatialIdx= spatialRef.find(':')
-                spatialId= int(spatialRef[spatialIdx+1:])
-                prjString= arcpy.SpatialReference(spatialId).exportToString()
+                spatialRef = doc['grid_spatial']['projection']['spatial_reference']
+                spatialIdx = spatialRef.find(':')
+                spatialId = int(spatialRef[spatialIdx + 1:])
+                prjString = arcpy.SpatialReference(spatialId).exportToString()
 
-                NRT01 = self.embedMRF(inputDir,(doc['image']['bands']['blue']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT02 = self.embedMRF(inputDir,(doc['image']['bands']['green']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT03 = self.embedMRF(inputDir,(doc['image']['bands']['red']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT04 = self.embedMRF(inputDir,(doc['image']['bands']['nir']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT05 = self.embedMRF(inputDir,(doc['image']['bands']['swir1']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT06 = self.embedMRF(inputDir,(doc['image']['bands']['swir2']['path']),maxX,maxY,minX,minY,prjString,protocol)
+                NRT01 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['blue']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT02 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['green']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT03 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['red']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT04 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['nir']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT05 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['swir1']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT06 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['swir2']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
 
             elif (_yamlpath.startswith("s3:")):
-                index = _yamlpath.find("/",5) #giving a start index of 5 will ensure that the / from s3:// is not returned.
-                bucketname = _yamlpath[5:index] #First 5 letters will always be s3://
-                key = _yamlpath[index+1:]
-                doc = self.utils.readYamlS3_boto3(bucketname,key)
+                # giving a start index of 5 will ensure that the / from s3://
+                # is not returned.
+                index = _yamlpath.find("/", 5)
+                # First 5 letters will always be s3://
+                bucketname = _yamlpath[5:index]
+                key = _yamlpath[index + 1:]
+                doc = self.utils.readYamlS3_boto3(bucketname, key)
 
-                if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
-                    return False
+                if (
+                        doc is None or 'image' not in doc or 'bands' not in doc['image']):
+                    raise Exception('Err. Invalid input format!')
+                    return None
 
-                lastIdx= _yamlpath.rfind('/')
-                inputDir= _yamlpath[5:lastIdx]  #along with the bucket name
-                protocol ='vsis3/'
-                refPoints= doc['grid_spatial']['projection']['geo_ref_points']
-                maxX= refPoints['lr']['x']
-                maxY= refPoints['ur']['y']
-                minX= refPoints['ll']['x']
-                minY= refPoints['ll']['y']
+                lastIdx = _yamlpath.rfind('/')
+                inputDir = _yamlpath[5:lastIdx]  # along with the bucket name
+                protocol = 'vsis3/'
+                refPoints = doc['grid_spatial']['projection']['geo_ref_points']
+                maxX = refPoints['lr']['x']
+                maxY = refPoints['ur']['y']
+                minX = refPoints['ll']['x']
+                minY = refPoints['ll']['y']
 
-                spatialRef= doc['grid_spatial']['projection']['spatial_reference']
-                spatialIdx= spatialRef.find(':')
-                spatialId= int(spatialRef[spatialIdx+1:])
-                prjString= arcpy.SpatialReference(spatialId).exportToString()
+                spatialRef = doc['grid_spatial']['projection']['spatial_reference']
+                spatialIdx = spatialRef.find(':')
+                spatialId = int(spatialRef[spatialIdx + 1:])
+                prjString = arcpy.SpatialReference(spatialId).exportToString()
 
-                NRT01 = self.embedMRF(inputDir,(doc['image']['bands']['blue']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT02 = self.embedMRF(inputDir,(doc['image']['bands']['green']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT03 = self.embedMRF(inputDir,(doc['image']['bands']['red']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT04 = self.embedMRF(inputDir,(doc['image']['bands']['nir']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT05 = self.embedMRF(inputDir,(doc['image']['bands']['swir1']['path']),maxX,maxY,minX,minY,prjString,protocol)
-                NRT06 = self.embedMRF(inputDir,(doc['image']['bands']['swir2']['path']),maxX,maxY,minX,minY,prjString,protocol)
+                NRT01 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['blue']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT02 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['green']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT03 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['red']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT04 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['nir']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT05 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['swir1']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
+                NRT06 = self.embedMRF(
+                    inputDir,
+                    (doc['image']['bands']['swir2']['path']),
+                    maxX,
+                    maxY,
+                    minX,
+                    minY,
+                    prjString,
+                    protocol)
             else:
                 doc = self.utils.readYaml(_yamlpath)
-                refPoints= doc['grid_spatial']['projection']['geo_ref_points']
-                maxX= refPoints['lr']['x']
-                maxY= refPoints['ur']['y']
-                minX= refPoints['ll']['x']
-                minY= refPoints['ll']['y']
-                if (doc is None or 'image' not in doc or 'bands' not in doc['image']):
-                    print  ('Err. Invalid input format!')
-                    return False
+                refPoints = doc['grid_spatial']['projection']['geo_ref_points']
+                maxX = refPoints['lr']['x']
+                maxY = refPoints['ur']['y']
+                minX = refPoints['ll']['x']
+                minY = refPoints['ll']['y']
+                if (
+                        doc is None or 'image' not in doc or 'bands' not in doc['image']):
+                    raise Exception('Err. Invalid input format!')
+                    return None
 
-                NRT01 = os.path.join(yamldir,(doc['image']['bands']['blue']['path']))
-                NRT02 = os.path.join(yamldir,(doc['image']['bands']['green']['path']))
-                NRT03 = os.path.join(yamldir,(doc['image']['bands']['red']['path']))
-                NRT04 = os.path.join(yamldir,(doc['image']['bands']['nir']['path']))
-                NRT05 = os.path.join(yamldir,(doc['image']['bands']['swir1']['path']))
-                NRT06 = os.path.join(yamldir,(doc['image']['bands']['swir2']['path']))
+                NRT01 = os.path.join(
+                    yamldir, (doc['image']['bands']['blue']['path']))
+                NRT02 = os.path.join(
+                    yamldir, (doc['image']['bands']['green']['path']))
+                NRT03 = os.path.join(
+                    yamldir, (doc['image']['bands']['red']['path']))
+                NRT04 = os.path.join(
+                    yamldir, (doc['image']['bands']['nir']['path']))
+                NRT05 = os.path.join(
+                    yamldir, (doc['image']['bands']['swir1']['path']))
+                NRT06 = os.path.join(
+                    yamldir, (doc['image']['bands']['swir2']['path']))
 
-
-            #Metadata Information
+            # Metadata Information
             metadata = {}
             instrument = doc['instrument']['name']
             if (instrument is not None):
-                metadata['Instrument']=instrument
+                metadata['Instrument'] = instrument
 
             platform = doc['platform']['code']
             if (platform is not None):
-                metadata['Platform']=platform
+                metadata['Platform'] = platform
 
             prodtype = doc['product_type']
             if (prodtype is not None):
-                metadata['ProductType']=prodtype
+                metadata['ProductType'] = prodtype
 
             id = doc['id']
             if (doc is not None):
-                metadata['ID']=id
+                metadata['ID'] = id
 
             acqdate = doc['extent']['center_dt']
             if (acqdate is not None):
-                metadata['AcquisitionDate']= acqdate[0:19].replace("T"," ")
+                metadata['AcquisitionDate'] = acqdate[0:19].replace("T", " ")
 
-            ## Check for URI.
-################# ESPG CODE
+            # Check for URI.
+# ESPG CODE
             srsWKT = 0
             projectionNode = doc['grid_spatial']['projection']['spatial_reference']
             if (projectionNode is not None):
-                srsWKT =int(projectionNode.split(":")[1])
+                srsWKT = int(projectionNode.split(":")[1])
 
             builtItem = {}
-            #Depending upon the tag name in the itemURI pass the appropriate bandProperties dictionary and RFT
+            # Depending upon the tag name in the itemURI pass the appropriate
+            # bandProperties dictionary and RFT
 
             if (itemURI['tag'] == "NBART"):
-                #NBART
-                bandProperties = [{'bandName':'blue'},
-                                    {'bandName':'green'},
-                                    {'bandName':'red'},
-                                    {'bandName':'nir'},
-                                    {'bandName':'swir1'},
-                                    {'bandName':'swir2'}]
+                # NBART
+                bandProperties = [{'bandName': 'blue'},
+                                  {'bandName': 'green'},
+                                  {'bandName': 'red'},
+                                  {'bandName': 'nir'},
+                                  {'bandName': 'swir1'},
+                                  {'bandName': 'swir2'}]
 
-                builtItem['raster'] ={'functionDataset':{
-                                                        'rasterFunction':"GS_Composite.rft.xml",
-                                                        'rasterFunctionArguments':{
-                                                                                    'Raster1': NRT01,
-                                                                                    'Raster1_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY},
-                                                                                    'Raster2': NRT02,
-                                                                                    'Raster2_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY},
-                                                                                    'Raster3': NRT03,
-                                                                                    'Raster3_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY},
-                                                                                    'Raster4': NRT04,
-                                                                                    'Raster4_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY},
-                                                                                    'Raster5': NRT05,
-                                                                                    'Raster5_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY},
-                                                                                    'Raster6': NRT06,
-                                                                                    'Raster6_rasterInfo':{'pixelType':6,'ncols':4000,'nRows':4000,'nBands':1,'spatialReference':srsWKT,'xMin':minX,'yMin':minY,'xMax':maxX,'yMax':maxY}
-                                                                                   }
-                                                        }
-                                    }
+                builtItem['raster'] = {
+                    'functionDataset': {
+                        'rasterFunction': "GS_Composite.rft.xml",
+                        'rasterFunctionArguments': {
+                            'Raster1': NRT01,
+                            'Raster1_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY},
+                            'Raster2': NRT02,
+                            'Raster2_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY},
+                            'Raster3': NRT03,
+                            'Raster3_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY},
+                            'Raster4': NRT04,
+                            'Raster4_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY},
+                            'Raster5': NRT05,
+                            'Raster5_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY},
+                            'Raster6': NRT06,
+                            'Raster6_rasterInfo': {
+                                'pixelType': 6,
+                                'ncols': 4000,
+                                'nRows': 4000,
+                                'nBands': 1,
+                                'spatialReference': srsWKT,
+                                'xMin': minX,
+                                'yMin': minY,
+                                'xMax': maxX,
+                                'yMax': maxY}}}}
 
                 metadata['bandProperties'] = bandProperties
 
-################# DEFINE A DICTIONARY OF VARIABLES
+# DEFINE A DICTIONARY OF VARIABLES
             variables = {}
 
             cordsList = doc['grid_spatial']['projection']['valid_data']['coordinates']
-################### Assemble everything into an outgoing dictionary
+# Assemble everything into an outgoing dictionary
             builtItem['spatialReference'] = srsWKT
             builtItem['variables'] = variables
             builtItem['itemUri'] = itemURI
@@ -432,12 +598,14 @@ class GeoscienceBuilder():
             builtItemsList.append(builtItem)
             return builtItemsList
         except Exception as e:
-            print(str(e))
+            raise
         return None
 
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
 # Geoscience Crawlerclass
 # ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ## ----- ##
+
+
 class GeoscienceCrawler():
 
     def __init__(self, **crawlerProperties):
@@ -447,8 +615,8 @@ class GeoscienceCrawler():
             self.recurse = crawlerProperties['recurse']
             self.filter = crawlerProperties['filter']
             self.run = 1
-        except:
-            print ('Error in crawler properties')
+        except BaseException:
+            ##            print ('Error in crawler properties')
             return None
         if (self.filter is (None or "")):
             self.filter = '*.yaml'
@@ -458,12 +626,12 @@ class GeoscienceCrawler():
             return None
 
         try:
-            self.tagGenerator = self.createTagGenerator()   #reinitialize tag generator
+            self.tagGenerator = self.createTagGenerator()  # reinitialize tag generator
         except StopIteration:
             return None
 
     def createTagGenerator(self):
-        for tag in ["NBART"]:      #Landsat8 nbart product
+        for tag in ["NBART"]:  # Landsat8 nbart product
             yield tag
 
     def createGenerator(self):
@@ -491,7 +659,8 @@ class GeoscienceCrawler():
                     reader = csv.reader(csvfile)
                     rasterFieldIndex = -1
                     firstRow = next(reader)
-                    #Check for the 'raster' field in the csv file, if not present take the first field as input data
+                    # Check for the 'raster' field in the csv file, if not
+                    # present take the first field as input data
                     for attribute in firstRow:
                         if (attribute.lower() == 'raster'):
                             rasterFieldIndex = firstRow.index(attribute)
@@ -501,7 +670,8 @@ class GeoscienceCrawler():
                         rasterFieldIndex = 0
                     for row in reader:
                         filename = row[rasterFieldIndex]
-                        if (filename.startswith("http")or (filename.startswith("s3"))):   #if the csv list contains a list of s3 urls
+                        if (filename.startswith("http")or (filename.startswith(
+                                "s3"))):  # if the csv list contains a list of s3 urls
                             yield filename
                         elif (filename.endswith(".yaml") and os.path.exists(filename)):
                             yield filename
@@ -512,36 +682,36 @@ class GeoscienceCrawler():
         return self
 
     def next(self):
-        ## Return URI dictionary to Builder
+        # Return URI dictionary to Builder
         return self.getNextUri()
 
     def getNextUri(self):
         try:
-            if (self.run ==1):
+            if (self.run == 1):
                 try:
                     self.curPath = next(self.pathGenerator)
-                    self.run=10
-                except:
+                    self.run = 10
+                except BaseException:
                     return None
             try:
                 curTag = next(self.tagGenerator)
             except StopIteration:
                 try:
-                    self.tagGenerator = self.createTagGenerator()   #reinitialize tag generator
+                    self.tagGenerator = self.createTagGenerator()  # reinitialize tag generator
                 except StopIteration:
                     return None
                 try:
                     self.curPath = next(self.pathGenerator)
-                except:
+                except BaseException:
                     return None
                 curTag = next(self.tagGenerator)
         except StopIteration:
             return None
         uri = {
-                'path': self.curPath,
-                'displayName': os.path.basename(self.curPath).partition(".")[0],
-                'tag': curTag,
-                'groupName': os.path.basename(self.curPath).partition(".")[0],
-##                'productName':productName
-              }
+            'path': self.curPath,
+            'displayName': os.path.basename(self.curPath).partition(".")[0],
+            'tag': curTag,
+            'groupName': os.path.basename(self.curPath).partition(".")[0],
+            # 'productName':productName
+        }
         return uri
