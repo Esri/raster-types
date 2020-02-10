@@ -1,0 +1,322 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.5'>
+	<Name>Geoscience_Composite_ArrayArguments</Name>
+	<Description>A raster function template.</Description>
+	<Function xsi:type='typens:CompositeBandFunction'>
+		<Name>Composite Band Function</Name>
+		<Description>Combines rasters to form a multiband raster.</Description>
+		<PixelType>UNKNOWN</PixelType>
+	</Function>
+	<Arguments xsi:type='typens:RasterFunctionVariable'>
+		<Name>Rasters_2018730_14522_547</Name>
+		<Description/>
+		<Value xsi:type='typens:ArrayOfArgument'>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster1</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster2</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster3</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster4</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster5</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster6</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster7</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster8</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster9</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster10</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster11</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster12</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster13</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster14</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster15</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster16</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster17</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster18</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster19</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster20</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster21</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster22</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster23</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster24</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster25</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster26</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster27</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster28</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster29</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster30</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster31</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster32</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster33</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster34</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster35</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster36</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>	
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster37</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster38</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster39</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster40</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster41</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster42</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster43</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster32</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster44</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster45</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster46</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster47</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</Argument>	
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster48</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>			
+			</Argument>	
+			<Argument xsi:type='typens:RasterFunctionVariable'>
+				<Name>Raster49</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>			
+			</Argument>	
+		</Value>
+	</Arguments>
+	<Help/>
+	<Type>0</Type>
+	<Thumbnail/>
+	<Definition/>
+	<Group/>
+	<Tag/>
+	<ThumbnailEx/>
+</RasterFunctionTemplate>

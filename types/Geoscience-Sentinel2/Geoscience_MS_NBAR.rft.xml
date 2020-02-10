@@ -1,0 +1,22 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.5'>
+	<Name>Geoscience_ms</Name>
+	<Description>Geoscience_MS_NBAR</Description>
+	<Function xsi:type='typens:IdentityFunction'>
+		<Name>Identity Function</Name>
+		<Description>A No-Op Function.</Description>
+		<PixelType>UNKNOWN</PixelType>
+	</Function>
+	<Arguments xsi:type='typens:RasterFunctionVariable'>
+		<Name>NBAR</Name>
+		<Description/>
+		<Value/>
+		<IsDataset>true</IsDataset>
+	</Arguments>
+	<Help/>
+	<Type>0</Type>
+	<Thumbnail xsi:type='xs:string'/>
+	<Definition/>
+	<Group/>
+	<Tag/>
+	<ThumbnailEx/>
+</RasterFunctionTemplate>

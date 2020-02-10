@@ -1,0 +1,281 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.4'>
+  <Name>ls8_psh</Name>
+  <Description>A raster function template.</Description>
+  <Function xsi:type='typens:StretchFunction'>
+    <Name>Stretch Function</Name>
+    <Description>Enhances an image by changing properties such as brightness, contrast and gamma through multiple stretch types.</Description>
+    <PixelType>UNKNOWN</PixelType>
+  </Function>
+  <Arguments xsi:type='typens:StretchFunctionArguments'>
+    <Names xsi:type='typens:ArrayOfString'>
+      <String>Raster</String>
+      <String>Min</String>
+      <String>Max</String>
+      <String>MinPercent</String>
+      <String>MaxPercent</String>
+      <String>Statistics</String>
+      <String>EstimateStatsHistogram</String>
+      <String>Gamma</String>
+      <String>StretchType</String>
+      <String>NumberOfStandardDeviation</String>
+      <String>UseGamma</String>
+      <String>ComputeGamma</String>
+    </Names>
+    <Values xsi:type='typens:ArrayOfAnyType'>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>PrimaryChainConnector</Name>
+        <Description></Description>
+        <Value xsi:type='typens:RasterFunctionTemplate'>
+          <Name>Raster Function Template</Name>
+          <Description>A raster function template.</Description>
+          <Function xsi:type='typens:PansharpeningFunction'>
+            <Name>Pansharpening Function</Name>
+            <Description>Enhances the spatial resolution of a multiband image by fusing it with a higher-resolution panchromatic image.</Description>
+            <PixelType>UNKNOWN</PixelType>
+          </Function>
+          <Arguments xsi:type='typens:PansharpeningFunctionArguments'>
+            <Names xsi:type='typens:ArrayOfString'>
+              <String>Weights</String>
+              <String>PansharpeningType</String>
+              <String>PanImage</String>
+              <String>MSImage</String>
+              <String>UseFourthBandOfMSAsIR</String>
+            </Names>
+            <Values xsi:type='typens:ArrayOfAnyType'>
+              <AnyType xsi:type='typens:RasterFunctionVariable'>
+                <Name>Weights</Name>
+                <Description></Description>
+                <Value xsi:type='typens:ArrayOfDouble'>
+                  <Double>0.41999999999999998</Double>
+                  <Double>0.51000000000000001</Double>
+                  <Double>0.070000000000000007</Double>
+                  <Double>0</Double>
+                </Value>
+                <IsDataset>false</IsDataset>
+              </AnyType>
+              <AnyType xsi:type='typens:RasterFunctionVariable'>
+                <Name>PansharpeningType</Name>
+                <Description></Description>
+                <Value xsi:type='xs:int'>4</Value>
+                <IsDataset>false</IsDataset>
+              </AnyType>
+              <AnyType xsi:type='typens:RasterFunctionTemplate'>
+                <Name>Raster Function Template</Name>
+                <Description>A raster function template.</Description>
+                <Function xsi:type='typens:ConvolutionFunction'>
+                  <Name>Convolution Function</Name>
+                  <Description>Performs filtering on the pixel values in a raster, which can be used for sharpening an image, blurring an image, detecting edges within an image, or other kernel-based enhancements.</Description>
+                  <PixelType>UNKNOWN</PixelType>
+                </Function>
+                <Arguments xsi:type='typens:ConvolutionFunctionArguments'>
+                  <Names xsi:type='typens:ArrayOfString'>
+                    <String>Raster</String>
+                    <String>Type</String>
+                  </Names>
+                  <Values xsi:type='typens:ArrayOfAnyType'>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>Pan</Name>
+                      <Description></Description>
+                      <Value></Value>
+                      <Aliases xsi:type='typens:ArrayOfString'>
+                        <String>Pan</String>
+                      </Aliases>
+                      <IsDataset>true</IsDataset>
+                    </AnyType>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>Type</Name>
+                      <Description></Description>
+                      <Value xsi:type='xs:int'>20</Value>
+                      <IsDataset>false</IsDataset>
+                    </AnyType>
+                  </Values>
+                </Arguments>
+                <Help></Help>
+                <Type>0</Type>
+                <Thumbnail></Thumbnail>
+                <Definition></Definition>
+                <Group></Group>
+                <Tag></Tag>
+                <ThumbnailEx></ThumbnailEx>
+              </AnyType>
+              <AnyType xsi:type='typens:RasterFunctionTemplate'>
+                <Name>MS</Name>
+                <Description>A raster function template.</Description>
+                <Function xsi:type='typens:ExtractBandFunction'>
+                  <Name>Extract Band Function</Name>
+                  <Description>Reorders or extracts bands from a raster.</Description>
+                  <PixelType>UNKNOWN</PixelType>
+                </Function>
+                <Arguments xsi:type='typens:ExtractBandFunctionArguments'>
+                  <Names xsi:type='typens:ArrayOfString'>
+                    <String>Raster</String>
+                    <String>BandNames</String>
+                    <String>BandWavelengths</String>
+                    <String>BandIDs</String>
+                  </Names>
+                  <Values xsi:type='typens:ArrayOfAnyType'>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>MS</Name>
+                      <Description></Description>
+                      <Value></Value>
+                      <Aliases xsi:type='typens:ArrayOfString'>
+                        <String>MS</String>
+                      </Aliases>
+                      <IsDataset>true</IsDataset>
+                    </AnyType>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>BandNames</Name>
+                      <Description></Description>
+                      <Value xsi:type='typens:ArrayOfString'>
+                        <String>Red</String>
+                        <String>Green</String>
+                        <String>Blue</String>
+                        <String>NearInfrared</String>
+                      </Value>
+                      <IsDataset>false</IsDataset>
+                    </AnyType>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>BandWavelengths</Name>
+                      <Description></Description>
+                      <Value xsi:nil='true'/>
+                      <IsDataset>false</IsDataset>
+                    </AnyType>
+                    <AnyType xsi:type='typens:RasterFunctionVariable'>
+                      <Name>BandIDs</Name>
+                      <Description></Description>
+                      <Value xsi:nil='true'/>
+                      <IsDataset>false</IsDataset>
+                    </AnyType>
+                  </Values>
+                </Arguments>
+                <Help></Help>
+                <Type>0</Type>
+                <Thumbnail></Thumbnail>
+                <Definition></Definition>
+                <Group></Group>
+                <Tag></Tag>
+                <ThumbnailEx></ThumbnailEx>
+              </AnyType>
+              <AnyType xsi:type='typens:RasterFunctionVariable'>
+                <Name>UseFourthBandOfMSAsIR</Name>
+                <Description></Description>
+                <Value xsi:type='xs:boolean'>false</Value>
+                <Aliases xsi:type='typens:ArrayOfString'>
+                  <String>UseFourthBandOfMSAsIR</String>
+                </Aliases>
+                <IsDataset>false</IsDataset>
+              </AnyType>
+            </Values>
+          </Arguments>
+          <Help></Help>
+          <Type>0</Type>
+          <Thumbnail></Thumbnail>
+          <Definition></Definition>
+          <Group></Group>
+          <Tag></Tag>
+          <ThumbnailEx></ThumbnailEx>
+        </Value>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>Min</Name>
+        <Description></Description>
+        <Value xsi:type='xs:double'>0</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.Min</String>
+          <String>MS.Min</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>Max</Name>
+        <Description></Description>
+        <Value xsi:type='xs:double'>65535</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.Max</String>
+          <String>MS.Max</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>MinPercent</Name>
+        <Description></Description>
+        <Value xsi:type='xs:double'>0.25</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.MinPercent</String>
+          <String>MS.MinPercent</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>MaxPercent</Name>
+        <Description></Description>
+        <Value xsi:type='xs:double'>0.5</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.MaxPercent</String>
+          <String>MS.MaxPercent</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>Statistics</Name>
+        <Description></Description>
+        <Value></Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.Statistics</String>
+          <String>MS.Statistics</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>EstimateStatsHistogram</Name>
+        <Description></Description>
+        <Value xsi:type='xs:boolean'>false</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.EstimateStatsHistogram</String>
+          <String>MS.EstimateStatsHistogram</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>Gamma</Name>
+        <Description></Description>
+        <Value></Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.Gamma</String>
+          <String>MS.Gamma</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='xs:int'>0</AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>NumberOfStandardDeviation</Name>
+        <Description></Description>
+        <Value xsi:type='xs:double'>2</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.NumberOfStandardDeviation</String>
+          <String>MS.NumberOfStandardDeviation</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+      <AnyType xsi:type='xs:boolean'>false</AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable'>
+        <Name>ComputeGamma</Name>
+        <Description></Description>
+        <Value xsi:type='xs:boolean'>true</Value>
+        <Aliases xsi:type='typens:ArrayOfString'>
+          <String>Pansharpened.ComputeGamma</String>
+          <String>MS.ComputeGamma</String>
+        </Aliases>
+        <IsDataset>false</IsDataset>
+      </AnyType>
+    </Values>
+  </Arguments>
+  <Help></Help>
+  <Type>0</Type>
+  <Thumbnail></Thumbnail>
+  <Definition></Definition>
+  <Group></Group>
+  <Tag></Tag>
+  <ThumbnailEx></ThumbnailEx>
+</RasterFunctionTemplate>
