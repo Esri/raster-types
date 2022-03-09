@@ -1,0 +1,3 @@
+{"stac_api": "https://earth-search.aws.element84.com/v0/",
+"query":{"collections": ["landsat-8-l1-c1"], "bbox": [77.8974, 26.34252, 80.27627, 28.50439], "query": {"eo:cloud_cover": {"lt": 30}}, "datetime": "2020-10-05T00:00:00Z/2020-10-18T12:31:12Z", "limit": 2},
+"attribute_dict":{"Name":"id","SensorName":"platform","Instrument":"instruments", "AcquisitionDate":"datetime","CloudCover":"eo:cloud_cover","SunAzimuth":"view:sun_azimuth" ,"SpatialReference":"proj:epsg","Extent":"bbox", "OffNadir":"view:off_nadir", "SunElevation": "view:sun_elevation"}}
